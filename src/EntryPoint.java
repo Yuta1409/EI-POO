@@ -29,23 +29,16 @@ public class EntryPoint {
                     // TODO FS1 : Lister les voitures disponibles
                     System.out.println("Voici la liste des voitures disponibles");
                     List<Voiture> voituresDisponibles = Voiture.getVoiture();
-                    for (int i = 0; i < voituresDisponibles.size(); i++) {
-                        Voiture voiture = voituresDisponibles.get(i);
-                        System.out.println((i + 1) + ". " + voiture.getMarque() + " " + voiture.getModele());
+                    for (Voiture voiture : voituresDisponibles) {
+                        System.out.println(voiture.getMarque() + " " + voiture.getModele());
                     }
                     break;
                 case 2:
                     // TODO FP1 : réserver une voiture
                     System.out.println("A quelle date souhaitez-vous réserver votre voiture?");
+
                     String dateReservation = console.captureString();
-
-                    // Générer une réservation avec un nom aléatoire et une date fixe (à remplacer par votre logique)
-                    Reservation reservation = new Reservation(NamesGenerator.generateNames(), dateReservation);
-
-                    // Récupérer les détails du client (nom complet)
-                    NamesGenerator.Names client = NamesGenerator.generateNames();
-                    String prenom = client.getFirstName();
-                    String nom = client.getLastName();
+                    Reservation reservation = new Reservation(dateReservation);
 
                     // Vérifier si une réservation existe déjà pour cette date
                     if (!Reservation.reservationDejaExistante(Reservation.getReservations(), reservation.getDateReservation())) {
@@ -54,7 +47,6 @@ public class EntryPoint {
 
                         // Afficher les détails de la réservation
                         System.out.println("Réservation effectuée avec succès");
-                        System.out.println("Nom et prénom du client : " + prenom + " " + nom);
                         System.out.println("Date de réservation : " + reservation.getDateReservation());
                     } else {
                         System.err.println("Une réservation existe déjà pour cette date");
@@ -75,7 +67,23 @@ public class EntryPoint {
                     Voiture voitureChoisie = voitures.get(choixVoiture - 1);
 
                     System.out.println("Vous avez choisi la voiture : " + voitureChoisie.getMarque() + " " + voitureChoisie.getModele());
+                    System.out.println("###################################################");
 
+                    System.out.println("Quelle Client ?");
+                    NamesGenerator.Names names = NamesGenerator.generateNames();
+                    List<Client> clients = Client.getClients();
+                    clients.add(new Client(names));
+                    System.out.println(clients.getFirst());
+
+                    //afficher le details de la réservation
+                    System.out.println("###################################################");
+                    System.out.println("Voici les détails de votre réservation :");
+                    System.out.println("La voiture est une : "+ voitureChoisie.getMarque() + " " + voitureChoisie.getModele() + reservation.getDateReservation());
+                    System.out.println("Voiture réservée : " + voitureChoisie.getMarque() + " " + voitureChoisie.getModele());
+                    System.out.println("Client : " + clients.getFirst());
+
+
+                    break;
                 case 3:
                     System.out.println("A la prochaine!");
                 default:

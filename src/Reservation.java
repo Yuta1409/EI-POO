@@ -2,29 +2,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reservation extends Client {
+public class Reservation{
 
-    private NamesGenerator.Names client;
     private String reservationDate;
 
-    public Reservation(String nom, String prenom, String reservationDate) {
-        super(nom, prenom);
-        this.reservationDate = reservationDate;
-    }
-
-    // getter et setter
-    public NamesGenerator.Names getClient() {
-        return client;
-    }
-    public void setClient(NamesGenerator.Names client) {
-        this.client = client;
-    }
-
-    public String getReservationDate() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(String reservationDate) {
+    public Reservation(String reservationDate) {
         this.reservationDate = reservationDate;
     }
 
@@ -35,7 +17,6 @@ public class Reservation extends Client {
     @Override
     public String toString() {
         return "Reservation{" +
-                "client=" + client +
                 ", reservationDate='" + reservationDate + '\'' +
                 '}';
     }
